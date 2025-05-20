@@ -5,7 +5,8 @@ ShopSmart Demo Interactive demo of the recommendation interface
 ShopSmart AI is an intelligent recommendation system that combines collaborative filtering and content-based techniques to deliver personalized product suggestions. Designed with e-commerce in mind.
 
 ✨ Key Features
-Component	Highlights
+
+
 🎯 Hybrid Recommendations	Combines collaborative filtering + content-based approaches
 ⚡ FastAPI Backend	RESTful API with 3 recommendation endpoints
 💅 Streamlit Frontend	Amazon-inspired UI with interactive widgets
@@ -18,10 +19,12 @@ cd ShopSmart-AI
 
 # Install backend dependencies
 cd backend
+
 pip install -r requirements.txt
 
 # Install frontend dependencies
 cd ../frontend
+
 pip install -r requirements.txt
 
 🏃Running the System
