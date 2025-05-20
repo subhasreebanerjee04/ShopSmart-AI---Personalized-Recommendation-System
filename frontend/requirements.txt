@@ -1,0 +1,21 @@
+# Core
+streamlit==1.25.0
+requests==2.31.0
+
+# Visualization
+Pillow==10.0.0
+plotly==5.15.0
+
+# UI Enhancements
+streamlit-option-menu==0.3.6
+streamlit-extras==0.2.7
+
+# Backend Communication
+httpx==0.24.1
+
+# Utilities
+python-dotenv==1.0.0
+base58==2.1.1
+
+# Development (optional)
+streamlit-autorefresh==0.3.1  # For auto-reloading during dev
