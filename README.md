@@ -24,13 +24,13 @@ git clone https://github.com/yourusername/ShopSmart-AI.git
 
 cd ShopSmart-AI
 
-2 Install backend dependencies
+2. Install backend dependencies
 
 cd backend
 
 pip install -r requirements.txt
 
-3 Install frontend dependencies
+3. Install frontend dependencies
 
 cd ../frontend
 
@@ -38,11 +38,11 @@ pip install -r requirements.txt
 
 # 🏃Running the System
 
-1 Start backend server (in backend directory)
+1. Start backend server (in backend directory)
 
 uvicorn main:app --reload
 
-2 In another terminal, start frontend (in frontend directory)
+2. In another terminal, start frontend (in frontend directory)
 
 streamlit run frontend.py
 
