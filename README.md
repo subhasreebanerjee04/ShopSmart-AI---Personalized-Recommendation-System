@@ -18,7 +18,7 @@ ShopSmart AI is an intelligent recommendation system that combines collaborative
 
 # 🚀 Quick Start
 
-1 Clone repository
+1. Clone repository
 
 git clone https://github.com/yourusername/ShopSmart-AI.git
 
