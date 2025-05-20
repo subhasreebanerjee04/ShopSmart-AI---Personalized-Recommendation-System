@@ -55,7 +55,7 @@ API documentation at http://localhost:8000/docs
 
 Project Structure
 
-[deepseek_20250520_02180f.txt](https://github.com/user-attachments/files/20326169/deepseek_20250520_02180f.txt)
+(https://github.com/user-attachments/files/20326169/deepseek_20250520_02180f.txt)
 
 # 📜 License
 Distributed under the MIT License. See LICENSE for more information.
