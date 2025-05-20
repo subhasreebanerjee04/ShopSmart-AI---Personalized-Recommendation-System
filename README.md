@@ -18,19 +18,19 @@ ShopSmart AI is an intelligent recommendation system that combines collaborative
 
 # 🚀 Quick Start
 
- Clone repository
+1. Clone repository
 
 git clone https://github.com/yourusername/ShopSmart-AI.git
 
 cd ShopSmart-AI
 
- Install backend dependencies
+2. Install backend dependencies
 
 cd backend
 
 pip install -r requirements.txt
 
- Install frontend dependencies
+3. Install frontend dependencies
 
 cd ../frontend
 
@@ -38,11 +38,11 @@ pip install -r requirements.txt
 
 # 🏃Running the System
 
- Start backend server (in backend directory)
+1. Start backend server (in backend directory)
 
 uvicorn main:app --reload
 
- In another terminal, start frontend (in frontend directory)
+2. In another terminal, start frontend (in frontend directory)
 
 streamlit run frontend.py
 
