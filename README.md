@@ -1,12 +1,13 @@
-#🛍️ ShopSmart AI - Personalized Recommendation Engine
+# 🛍️ ShopSmart AI - Personalized Recommendation Engine
 ShopSmart Demo Interactive demo of the recommendation interface
 
-#🌟 Overview
+# 🌟 Overview
 ShopSmart AI is an intelligent recommendation system that combines collaborative filtering and content-based techniques to deliver personalized product suggestions. Designed with e-commerce in mind.
 
-#✨ Key Features
+# ✨ Key Features
 
 🎯 Hybrid Recommendations	Combines collaborative filtering + content-based approaches
+
 ⚡ FastAPI Backend	RESTful API with 3 recommendation endpoints
 
 💅 Streamlit Frontend	Amazon-inspired UI with interactive widgets
@@ -54,6 +55,7 @@ API documentation at http://localhost:8000/docs
 
 Project Structure
 
+[deepseek_20250520_02180f.txt](https://github.com/user-attachments/files/20326169/deepseek_20250520_02180f.txt)
 ├── backend/
 │   ├── main.py               # FastAPI application
 │   ├── requirements.txt      # Python dependencies
