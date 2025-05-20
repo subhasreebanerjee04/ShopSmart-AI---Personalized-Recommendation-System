@@ -1,0 +1,23 @@
+# Core
+fastapi==0.95.2
+uvicorn==0.22.0
+python-multipart==0.0.6
+
+# Data Processing
+numpy==1.24.3
+pandas==2.0.2
+scipy==1.10.1
+
+# Machine Learning
+scikit-learn==1.2.2
+nltk==3.8.1
+joblib==1.2.0
+
+# Utilities
+python-dotenv==1.0.0
+pickle5==0.0.12  # For Python <3.8 compatibility
+nest-asyncio==1.5.6
+
+# Optional (uncomment if needed)
+# tensorflow==2.12.0  # For deep learning variants
+# pyspark==3.4.0     # For large-scale processing
