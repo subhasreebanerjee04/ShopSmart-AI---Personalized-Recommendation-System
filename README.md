@@ -14,7 +14,7 @@ ShopSmart AI is an intelligent recommendation system that combines collaborative
 
 📊 Synthetic Data	Self-contained demo with generated user-item interactions
 
-#🚀 Quick Start
+# 🚀 Quick Start
 
  Clone repository
 
@@ -56,17 +56,6 @@ API documentation at http://localhost:8000/docs
 Project Structure
 
 [deepseek_20250520_02180f.txt](https://github.com/user-attachments/files/20326169/deepseek_20250520_02180f.txt)
-├── backend/
-│   ├── main.py               # FastAPI application
-│   ├── requirements.txt      # Python dependencies
-│   └── models/               # Serialized models
-├── frontend/
-│   ├── frontend.py           # Streamlit application
-│   ├── requirements.txt      # Frontend dependencies
-│   └── assets/               # CSS/images
-├── docs/                     # Documentation
-└── README.md                 # Project overview
-
 
 # 📜 License
 Distributed under the MIT License. See LICENSE for more information.
