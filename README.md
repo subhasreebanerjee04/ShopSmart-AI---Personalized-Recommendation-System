@@ -1,7 +1,5 @@
 # 🛍️ ShopSmart AI - Personalized Recommendation Engine
-ShopSmart Demo Interactive demo of the recommendation interface
 
-# 🌟 Overview
 ShopSmart AI is an intelligent recommendation system that combines collaborative filtering and content-based techniques to deliver personalized product suggestions. Designed with e-commerce in mind.
 
 # ✨ Key Features
