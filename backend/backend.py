@@ -17,6 +17,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import uvicorn
 import nest_asyncio
+from typing import Optional, List
 
 # Suppress warnings
 warnings.filterwarnings('ignore')
@@ -169,6 +170,56 @@ class AmazonRecommender:
             
         combined = pd.concat([cf_recs, cb_recs]).drop_duplicates()
         return combined.head(n)
+    
+    def search_products(self, query, fields=None, limit=10):
+        """
+        Search for products by query string
+        
+        Args:
+            query (str): The search query
+            fields (list): List of fields to search in. Default is title, category, brand
+            limit (int): Maximum number of results to return
+            
+        Returns:
+            DataFrame: Matching products
+        """
+        if not query or query.strip() == "":
+            return pd.DataFrame()
+            
+        if fields is None:
+            fields = ["title", "category", "brand"]
+            
+        # Convert query to lowercase for case-insensitive matching
+        query = query.lower()
+        query_terms = query.split()
+        
+        # Function to check if any query term is in the text
+        def match_any_term(text, terms):
+            if pd.isna(text):
+                return False
+            text = str(text).lower()
+            return any(term in text for term in terms)
+        
+        # Create filters for each field
+        filters = []
+        for field in fields:
+            if field in self.items_df.columns:
+                field_filter = self.items_df[field].apply(
+                    lambda x: match_any_term(x, query_terms)
+                )
+                filters.append(field_filter)
+        
+        # Combine all filters with OR logic
+        if not filters:
+            return pd.DataFrame()
+            
+        combined_filter = filters[0]
+        for f in filters[1:]:
+            combined_filter = combined_filter | f
+            
+        # Apply filter and return results
+        results = self.items_df[combined_filter].head(limit)
+        return results
 
 # Initialize recommender
 recommender = AmazonRecommender(
@@ -182,7 +233,7 @@ recommender = AmazonRecommender(
 # 8. FastAPI Application
 app = FastAPI(
     title="Amazon-Style Recommender API",
-    description="Generates product recommendations",
+    description="Generates product recommendations and provides search functionality",
     version="1.0"
 )
 
@@ -266,6 +317,65 @@ async def hybrid(
             detail=f"Error generating recommendations: {str(e)}"
         )
 
+@app.get("/search", response_class=JSONResponse)
+async def search(
+    query: str = Query(..., description="Search query"),
+    fields: Optional[List[str]] = Query(
+        None, 
+        description="Fields to search in (title, category, brand)",
+        example=["title", "brand"]
+    ),
+    limit: int = Query(10, description="Maximum number of results", ge=1, le=100)
+):
+    """Search products by query string"""
+    try:
+        results = recommender.search_products(query, fields, limit)
+        if results.empty:
+            return JSONResponse(
+                content={"message": "No products found", "products": []},
+                status_code=200
+            )
+        return {
+            "query": query,
+            "fields": fields if fields else ["title", "category", "brand"],
+            "count": len(results),
+            "products": results.to_dict(orient="records")
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Error searching products: {str(e)}"
+        )
+
+@app.get("/search/product", response_class=JSONResponse)
+async def search_exact_product(
+    product_name: str = Query(..., description="Exact product name to search for")
+):
+    """Search for a specific product by exact name"""
+    try:
+        # Case-insensitive exact match
+        results = items_df[items_df['title'].str.lower() == product_name.lower()]
+        
+        if results.empty:
+            return JSONResponse(
+                content={"message": f"Product '{product_name}' not found", "product": None},
+                status_code=200
+            )
+        
+         
+
+
+        # Return the first (and should be only) match
+        return {
+            "product_name": product_name,
+            "product": results.iloc[0].to_dict()
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Error searching for product: {str(e)}"
+        )
+
 @app.get("/", response_class=JSONResponse)
 async def root():
     return {
@@ -292,6 +402,20 @@ async def root():
                     "item_id": "string (required)",
                     "n": "integer (optional, default=5)"
                 }
+            },
+            "/search": {
+                "description": "Search products by keyword",
+                "parameters": {
+                    "query": "string (required)",
+                    "fields": "list of strings (optional)",
+                    "limit": "integer (optional, default=10)"
+                }
+            },
+            "/search/product": {
+                "description": "Search for exact product by name",
+                "parameters": {
+                    "product_name": "string (required)"
+                }
             }
         }
     }
@@ -306,6 +430,8 @@ if __name__ == "__main__":
     print("GET /recommend/cf?user_id=<user_id>")
     print("GET /recommend/cb?item_id=<item_id>")
     print("GET /recommend/hybrid?user_id=<user_id>&item_id=<item_id>")
+    print("GET /search?query=<search_term>")
+    print("GET /search/product?product_name=<exact_product_name>")
     print("\nExample valid IDs:")
     print(f"User IDs: user_0 to user_{len(interactions_df['user_id'].unique())-1}")
     print(f"Item IDs: item_0 to item_{len(items_df)-1}")
